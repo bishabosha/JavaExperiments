@@ -17,7 +17,7 @@ public class ValueTypesTest {
 
     @Test
     public void test_Fields_withDefault() {
-        // invokes java.valhalla.lworld1.IntLong() in class file; note the no arg constructor is required in source, but is not invoked here
+        // invokes IntLong() in class file; note the no arg constructor is required in source, but is not invoked here
         IntLong intLong = __MakeDefault IntLong();
 
         assertEquals(0, intLong._int);
@@ -26,7 +26,7 @@ public class ValueTypesTest {
 
     @Test
     public void test_Fields_withNew() {
-        // calls static java.valhalla.lworld1.IntLong $makeValue$() in class file
+        // calls static IntLong $makeValue$() in class file
         var intLong = new IntLong();
         assertEquals(100, intLong._int);
         assertEquals(100, intLong._long);
@@ -34,9 +34,29 @@ public class ValueTypesTest {
 
     @Test
     public void test_Fields_withNewOverload() {
-        // invokes static java.valhalla.lworld1.IntLong $makeValue$(int, long) in class file
-        var intLong = new IntLong(1, 1); // equivalent to creating factory method
+        // invokes static IntLong $makeValue$(int, long) in class file
+        var intLong = new IntLong(1, 1);
         assertEquals(1, intLong._int);
         assertEquals(1, intLong._long);
+    }
+
+    @Test
+    public void test_updateField_int() {
+        var intLong = IntLong.create(1, 2);
+        assertEquals(IntLong.create(1, 2), intLong);
+
+        var intLongUpdate = intLong.withInt(5);
+        assertEquals(IntLong.create(5, 2), intLongUpdate);
+        assertEquals(IntLong.create(1, 2), intLong);
+    }
+
+    @Test
+    public void test_updateField_long() {
+        var intLong = IntLong.create(1, 2);
+        assertEquals(IntLong.create(1, 2), intLong);
+
+        var intLongUpdate = intLong.withLong(5);
+        assertEquals(IntLong.create(1, 5), intLongUpdate);
+        assertEquals(IntLong.create(1, 2), intLong);
     }
 }

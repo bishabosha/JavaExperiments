@@ -10,8 +10,9 @@ public __ByValue class IntLong {
     long _long; // implicit final
 
     /**
-     * Compiles to static $makeValue$ but is required at source for default value constructor,
-     * whereby each field receives its JVM default value from {@code Object.<init>}
+     * @implNote Compiles to {@code static IntLong $makeValue$()} but is required at source for default value constructor.
+     * If not provided then *final* fields are left uninitialised when using {@code __MakeDefault}.
+     * However {@code makedefault} bytecode ignores the values set, defaulting to 0
      */
     IntLong() {
         _int = 100;
@@ -19,7 +20,7 @@ public __ByValue class IntLong {
     }
 
     /**
-     * @implNote Compiles to overloaded static {@code $makeValue$(int, long)} with identical bytecode to {@code create(int, long)}
+     * @implNote Compiles to {@code static IntLong $makeValue$(int, long)} with identical bytecode to {@code static IntLong create(int, long)}
      */
     IntLong(int x, long y) {
         _int = x;
@@ -34,5 +35,13 @@ public __ByValue class IntLong {
         intLong = __WithField(intLong._int, x);
         intLong = __WithField(intLong._long, y);
         return intLong;
+    }
+
+    IntLong withInt(int _int) {
+        return __WithField(this._int, _int);
+    }
+
+    IntLong withLong(long _long) {
+        return __WithField(this._long, _long);
     }
 }
