@@ -1,5 +1,9 @@
 package valhalla.lworld1;
 
+/**
+ * This must be compiled with a JDK that supports lworld1 valhalla prototype
+ * Run with same JRE with flag -XX:+EnableValhalla
+ */
 public __ByValue class IntLong {
 
     int _int; // implicit final
