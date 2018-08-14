@@ -10,15 +10,15 @@ import java.util.function.IntUnaryOperator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class LambdaDemo {
+public class LambdaTest {
 
     @Test
-    void test_lambda_usingBootstrap() {
+    public void test_lambda_usingBootstrap() {
         testAddOne(byLambda());
     }
 
     @Test
-    void test_lambda_usingMetaFactory() {
+    public void test_lambda_usingMetaFactory() {
         testAddOne(byFactory());
     }
 
@@ -31,7 +31,7 @@ class LambdaDemo {
         var mt = MethodType.methodType(int.class, int.class);
         MethodHandle addOneHandle;
         try {
-            addOneHandle = lookup.findStatic(LambdaDemo.class, "addOne", mt);
+            addOneHandle = lookup.findStatic(LambdaTest.class, "addOne", mt);
         } catch (NoSuchMethodException | IllegalAccessException e) {
             throw new InstantiationError("ADD_ONE");
         }

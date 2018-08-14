@@ -5,19 +5,19 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * This must be compiled with a JDK that supports lworld1 valhalla prototype
+ * This must be compiled with a JDK that supports lworld1 java.valhalla prototype
  * Run with same JRE with flag -XX:+EnableValhalla
  */
-public class ValueTypesDemo {
+public class ValueTypesTest {
 
     @Test
-    void stringDynamic() {
+    public void test_stringDynamic() {
         assertEquals("[value class valhalla.lworld1.IntLong, 1, 2]", IntLong.create(1, 2).toString());
     }
 
     @Test
-    void testFields_withDefault() {
-        // invokes valhalla.lworld1.IntLong() in class file; note the no arg constructor is required in source, but is not invoked here
+    public void test_Fields_withDefault() {
+        // invokes java.valhalla.lworld1.IntLong() in class file; note the no arg constructor is required in source, but is not invoked here
         IntLong intLong = __MakeDefault IntLong();
 
         assertEquals(0, intLong._int);
@@ -25,16 +25,16 @@ public class ValueTypesDemo {
     }
 
     @Test
-    void testFields_withNew() {
-        // calls static valhalla.lworld1.IntLong $makeValue$() in class file
+    public void test_Fields_withNew() {
+        // calls static java.valhalla.lworld1.IntLong $makeValue$() in class file
         var intLong = new IntLong();
         assertEquals(100, intLong._int);
         assertEquals(100, intLong._long);
     }
 
     @Test
-    void testFields_withNewOverload() {
-        // invokes static valhalla.lworld1.IntLong $makeValue$(int, long) in class file
+    public void test_Fields_withNewOverload() {
+        // invokes static java.valhalla.lworld1.IntLong $makeValue$(int, long) in class file
         var intLong = new IntLong(1, 1); // equivalent to creating factory method
         assertEquals(1, intLong._int);
         assertEquals(1, intLong._long);
