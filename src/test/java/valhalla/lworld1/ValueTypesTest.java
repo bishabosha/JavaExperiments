@@ -77,7 +77,7 @@ public class ValueTypesTest {
     }
 
     /**
-     * @implNote appears to be a bug, type inference allows Value Types to be generic witnesses
+     * @implNote appears to be a bug, type inference allows Value Types to be generic witnesses without -XDallowGenericsOverValues
      */
     @Test
     public void test_generic_ValueParam_inferred() {
