@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * This must be compiled with a JDK that supports lworld1 valhalla prototype
  * Run with same JRE with flag -XX:+EnableValhalla
  */
-public class ValueTypesLWorld1Demo {
+public class ValueTypesDemo {
 
     @Test
     void stringDynamic() {
@@ -38,38 +38,5 @@ public class ValueTypesLWorld1Demo {
         var intLong = new IntLong(1, 1); // equivalent to creating factory method
         assertEquals(1, intLong._int);
         assertEquals(1, intLong._long);
-    }
-}
-
-__ByValue class IntLong {
-
-    int _int; // implicit final
-    long _long; // implicit final
-
-    /**
-     * Compiles to static $makeValue$ but is required at source for default value constructor,
-     * whereby each field receives its JVM default value from {@code Object.<init>}
-     */
-    IntLong() {
-        _int = 100;
-        _long = 100;
-    }
-
-    /**
-     * @implNote Compiles to overloaded static {@code $makeValue$(int, long)} with identical bytecode to {@code create(int, long)}
-     */
-    IntLong(int x, long y) {
-        _int = x;
-        _long = y;
-    }
-
-    /**
-     * @implNote bytecode is identical to compiled 2 arg constructor.
-     */
-    static IntLong create(int x, long y) {
-        IntLong intLong = __MakeDefault IntLong();
-        intLong = __WithField(intLong._int, x);
-        intLong = __WithField(intLong._long, y);
-        return intLong;
     }
 }
