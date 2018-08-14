@@ -26,6 +26,11 @@
                 <configuration>
                     <source>11</source>
                     <target>11</target>
+                    <compilerArgs>
+                        <arg>-XDallowFlattenabilityModifiers</arg>
+                        <arg>-XDallowValueBasedClasses</arg>
+                        <arg>-XDallowGenericsOverValues</arg>
+                    </compilerArgs>
                 </configuration>
                 <dependencies>
                     <dependency>

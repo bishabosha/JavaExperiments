@@ -2,6 +2,8 @@ package valhalla.lworld1;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -41,6 +43,20 @@ public class ValueTypesTest {
     }
 
     @Test
+    public void test_Fields_withCreate() {
+        var intLong = IntLong.create(50, 50);
+        assertEquals(50, intLong._int);
+        assertEquals(50, intLong._long);
+    }
+
+    @Test
+    public void test_Fields_withCreateBetter() {
+        var intLong = IntLong.createBetter(50, 50);
+        assertEquals(50, intLong._int);
+        assertEquals(50, intLong._long);
+    }
+
+    @Test
     public void test_updateField_int() {
         var intLong = IntLong.create(1, 2);
         assertEquals(IntLong.create(1, 2), intLong);
@@ -58,5 +74,23 @@ public class ValueTypesTest {
         var intLongUpdate = intLong.withLong(5);
         assertEquals(IntLong.create(1, 5), intLongUpdate);
         assertEquals(IntLong.create(1, 2), intLong);
+    }
+
+    /**
+     * @implNote appears to be a bug, type inference allows Value Types to be generic witnesses
+     */
+    @Test
+    public void test_generic_ValueParam_inferred() {
+        var list = List.of(IntLong.create(1, 1), IntLong.create(2, 2));
+        assertEquals("[[value class valhalla.lworld1.IntLong, 1, 1], [value class valhalla.lworld1.IntLong, 2, 2]]", list.toString());
+    }
+
+    /**
+     * This is not allowed unless -XDallowGenericsOverValues is sent to javac
+     */
+    @Test
+    public void test_generic_ValueParam_manifest() {
+        List<IntLong> list = List.of(IntLong.create(1, 1), IntLong.create(2, 2));
+        assertEquals("[[value class valhalla.lworld1.IntLong, 1, 1], [value class valhalla.lworld1.IntLong, 2, 2]]", list.toString());
     }
 }

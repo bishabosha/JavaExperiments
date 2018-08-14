@@ -28,7 +28,7 @@ public __ByValue class IntLong {
     }
 
     /**
-     * @implNote bytecode is identical to compiled 2 arg constructor.
+     * @implNote bytecode is identical to compiled 2-arg constructor.
      */
     static IntLong create(int x, long y) {
         IntLong intLong = __MakeDefault IntLong();
@@ -37,11 +37,20 @@ public __ByValue class IntLong {
         return intLong;
     }
 
-    IntLong withInt(int _int) {
-        return __WithField(this._int, _int);
+    /**
+     * @implNote bytecode saves two instructions compared to 2-arg constructor
+     */
+    static IntLong createBetter(int x, long y) {
+        IntLong intLong = __MakeDefault IntLong();
+        intLong = __WithField(intLong._int, x);
+        return __WithField(intLong._long, y);
     }
 
-    IntLong withLong(long _long) {
-        return __WithField(this._long, _long);
+    IntLong withInt(int update) {
+        return __WithField(_int, update);
+    }
+
+    IntLong withLong(long update) {
+        return __WithField(_long, update);
     }
 }
