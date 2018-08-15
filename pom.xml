@@ -4,8 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.bishabosha</groupId>
     <artifactId>java-experiments</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>java-experiments-jdk8</module>
+        <module>java-experiments-valhalla</module>
+    </modules>
     <name>Java JDK Experiments</name>
 
     <dependencies>
@@ -16,38 +20,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
-                <configuration>
-                    <source>11</source>
-                    <target>11</target>
-                    <compilerArgs>
-                        <arg>-XDallowFlattenabilityModifiers</arg>
-                        <arg>-XDallowValueBasedClasses</arg>
-                        <arg>-XDallowGenericsOverValues</arg>
-                    </compilerArgs>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.ow2.asm</groupId>
-                        <artifactId>asm</artifactId>
-                        <version>6.1.1</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.0</version>
-                <configuration>
-                    <argLine>-XX:+EnableValhalla</argLine>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

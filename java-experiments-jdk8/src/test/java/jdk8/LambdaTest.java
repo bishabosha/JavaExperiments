@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.lang.invoke.LambdaMetafactory;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.invoke.MethodType;
 import java.util.function.IntUnaryOperator;
 
@@ -27,8 +28,8 @@ public class LambdaTest {
     }
 
     private IntUnaryOperator byFactory() {
-        var lookup = MethodHandles.lookup();
-        var mt = MethodType.methodType(int.class, int.class);
+        Lookup lookup = MethodHandles.lookup();
+        MethodType mt = MethodType.methodType(int.class, int.class);
         MethodHandle addOneHandle;
         try {
             addOneHandle = lookup.findStatic(LambdaTest.class, "addOne", mt);
