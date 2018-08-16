@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.lang.invoke.LambdaMetafactory;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.invoke.MethodType;
 import java.util.function.IntUnaryOperator;
 
@@ -27,18 +28,19 @@ public class LambdaTest {
     }
 
     private IntUnaryOperator byFactory() {
-        var lookup = MethodHandles.lookup();
-        var mt = MethodType.methodType(int.class, int.class);
+        Lookup lookup = MethodHandles.lookup();
+        MethodType mt_int_int = MethodType.methodType(int.class, int.class);
+        MethodType mt_IntUnaryOperator = MethodType.methodType(IntUnaryOperator.class);
         MethodHandle addOneHandle;
         try {
-            addOneHandle = lookup.findStatic(LambdaTest.class, "addOne", mt);
+            addOneHandle = lookup.findStatic(LambdaTest.class, "addOne", mt_int_int);
         } catch (NoSuchMethodException | IllegalAccessException e) {
-            throw new InstantiationError("ADD_ONE");
+            throw new InstantiationError("addOneHandle");
         }
 
         IntUnaryOperator addOne;
         try {
-            addOne = (IntUnaryOperator) LambdaMetafactory.metafactory(lookup, "applyAsInt", MethodType.methodType(IntUnaryOperator.class), mt, addOneHandle, mt)
+            addOne = (IntUnaryOperator) LambdaMetafactory.metafactory(lookup, "applyAsInt", mt_IntUnaryOperator, mt_int_int, addOneHandle, mt_int_int)
                 .getTarget()
                 .invokeExact();
         } catch (Throwable throwable) {
