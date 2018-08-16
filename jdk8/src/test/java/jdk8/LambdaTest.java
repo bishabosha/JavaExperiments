@@ -29,17 +29,18 @@ public class LambdaTest {
 
     private IntUnaryOperator byFactory() {
         Lookup lookup = MethodHandles.lookup();
-        MethodType mt = MethodType.methodType(int.class, int.class);
+        MethodType mt_int_int = MethodType.methodType(int.class, int.class);
+        MethodType mt_IntUnaryOperator = MethodType.methodType(IntUnaryOperator.class);
         MethodHandle addOneHandle;
         try {
-            addOneHandle = lookup.findStatic(LambdaTest.class, "addOne", mt);
+            addOneHandle = lookup.findStatic(LambdaTest.class, "addOne", mt_int_int);
         } catch (NoSuchMethodException | IllegalAccessException e) {
-            throw new InstantiationError("ADD_ONE");
+            throw new InstantiationError("addOneHandle");
         }
 
         IntUnaryOperator addOne;
         try {
-            addOne = (IntUnaryOperator) LambdaMetafactory.metafactory(lookup, "applyAsInt", MethodType.methodType(IntUnaryOperator.class), mt, addOneHandle, mt)
+            addOne = (IntUnaryOperator) LambdaMetafactory.metafactory(lookup, "applyAsInt", mt_IntUnaryOperator, mt_int_int, addOneHandle, mt_int_int)
                 .getTarget()
                 .invokeExact();
         } catch (Throwable throwable) {
