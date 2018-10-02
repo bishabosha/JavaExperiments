@@ -4,7 +4,7 @@ package valhalla.lworld1;
  * This must be compiled with a JDK that supports lworld1 valhalla prototype
  * Run with same JRE with flag -XX:+EnableValhalla
  */
-public __ByValue class IntLong {
+public value class IntLong {
 
     int _int; // implicit final
     long _long; // implicit final
@@ -31,7 +31,7 @@ public __ByValue class IntLong {
      * @implNote bytecode is identical to compiled 2-arg constructor.
      */
     static IntLong create(int x, long y) {
-        IntLong intLong = __MakeDefault IntLong();
+        IntLong intLong = IntLong.default;
         intLong = __WithField(intLong._int, x);
         intLong = __WithField(intLong._long, y);
         return intLong;
@@ -41,7 +41,7 @@ public __ByValue class IntLong {
      * @implNote bytecode saves two instructions compared to 2-arg constructor
      */
     static IntLong createBetter(int x, long y) {
-        IntLong intLong = __MakeDefault IntLong();
+        IntLong intLong = IntLong.default;
         intLong = __WithField(intLong._int, x);
         return __WithField(intLong._long, y);
     }

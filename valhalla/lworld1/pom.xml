@@ -16,12 +16,15 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <!-- This has been tested with the latest update on valhalla/lworld
+                         as of 2 October 2018 -->
+                    <source>12</source>
+                    <target>12</target>
                     <compilerArgs>
                         <arg>-XDallowFlattenabilityModifiers</arg>
                         <arg>-XDallowValueBasedClasses</arg>
                         <arg>-XDallowGenericsOverValues</arg>
+                        <arg>-XDallowWithFieldOperator</arg>
                     </compilerArgs>
                 </configuration>
                 <dependencies>

@@ -20,7 +20,7 @@ public class ValueTypesTest {
     @Test
     public void test_Fields_withDefault() {
         // invokes IntLong() in class file; note the no arg constructor is required in source, but is not invoked here
-        IntLong intLong = __MakeDefault IntLong();
+        IntLong intLong = IntLong.default;
 
         assertEquals(0, intLong._int);
         assertEquals(0, intLong._long);
